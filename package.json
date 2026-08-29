@@ -1,0 +1,47 @@
+{
+  "name": "dsh-subagent-pause-xg",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "DSH plugin: pause the parent agent's turns while it has active subagents (no LLM requests), auto-resume when the subagent report arrives. Settings UI card included.",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/logic.js",
+    "lib/client.js",
+    "lib/types/**/*.d.ts"
+  ],
+  "dsh": {
+    "client": {
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:host": "tsc -p tsconfig.json",
+    "prepare": "node scripts/build.mjs",
+    "test": "node --test tests/logic.spec.mjs"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/dsh-agent": "*",
+    "@deepseek-ai/dsh-settings": "*",
+    "@deepseek-ai/dsh-subagent": "*",
+    "@deepseek-ai/schemastery": "*",
+    "typescript": "^5"
+  }
+}
