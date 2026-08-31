@@ -28,16 +28,18 @@ export interface SettingsScopeLike<T> {
 /** 插件 settings namespace 的 section 形状（与宿主 Config 一致） */
 export interface PauseSettingsSection {
   enabled?: boolean
+  autoResumeGoal?: boolean
   verbose?: boolean
   modelFilter?: { provider?: string; model?: string }
 }
 
 /** 可编辑字段 */
-export type PauseField = 'enabled' | 'verbose' | 'provider' | 'model'
+export type PauseField = 'enabled' | 'autoResumeGoal' | 'verbose' | 'provider' | 'model'
 
 /** 表单草稿（resolved 视图，布尔带 schema 默认值） */
 export interface PauseCardDraft {
   enabled: boolean
+  autoResumeGoal: boolean
   verbose: boolean
   provider: string
   model: string
@@ -72,6 +74,7 @@ export interface PauseCardFace {
 function seedDraft(value: PauseSettingsSection | undefined): PauseCardDraft {
   return {
     enabled: value?.enabled ?? true,
+    autoResumeGoal: value?.autoResumeGoal ?? true,
     verbose: value?.verbose ?? true,
     provider: value?.modelFilter?.provider ?? '',
     model: value?.modelFilter?.model ?? '',
@@ -80,8 +83,8 @@ function seedDraft(value: PauseSettingsSection | undefined): PauseCardDraft {
 
 /** 草稿间是否相等 */
 function draftsEqual(a: PauseCardDraft, b: PauseCardDraft): boolean {
-  return a.enabled === b.enabled && a.verbose === b.verbose
-    && a.provider === b.provider && a.model === b.model
+  return a.enabled === b.enabled && a.autoResumeGoal === b.autoResumeGoal
+    && a.verbose === b.verbose && a.provider === b.provider && a.model === b.model
 }
 
 export class PauseCardController {
@@ -134,7 +137,7 @@ export class PauseCardController {
 
   edit(field: PauseField, value: boolean | string): void {
     if (this.saving) return
-    if (field === 'enabled' || field === 'verbose') {
+    if (field === 'enabled' || field === 'autoResumeGoal' || field === 'verbose') {
       if (typeof value !== 'boolean') return
       this.draft = { ...this.draft, [field]: value }
     } else {
@@ -158,6 +161,7 @@ export class PauseCardController {
       const next = this.draft
       const current = this.resolved()
       if (next.enabled !== current.enabled) await this.scope.set('enabled', next.enabled)
+      if (next.autoResumeGoal !== current.autoResumeGoal) await this.scope.set('autoResumeGoal', next.autoResumeGoal)
       if (next.verbose !== current.verbose) await this.scope.set('verbose', next.verbose)
       const filterChanged = next.provider !== current.provider || next.model !== current.model
       if (filterChanged) {

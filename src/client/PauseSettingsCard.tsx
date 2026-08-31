@@ -57,6 +57,20 @@ export function PauseSettingsCard(props: PauseCardFace) {
               <label className="spc-check">
                 <input
                   type="checkbox"
+                  checked={draft.autoResumeGoal}
+                  disabled={!writable}
+                  onChange={(event) => { props.edit('autoResumeGoal', event.target.checked) }}
+                />
+                <span className="spc-check-text">
+                  <span className="spc-label">子代理结束后自动恢复 goal</span>
+                  <span className="spc-hint">最后一个子代理结算后，自动 resume 因冻结被 blocked 的 goal（prompt-rejected），无需手动恢复</span>
+                </span>
+              </label>
+            </div>
+            <div className="spc-field">
+              <label className="spc-check">
+                <input
+                  type="checkbox"
                   checked={draft.verbose}
                   disabled={!writable}
                   onChange={(event) => { props.edit('verbose', event.target.checked) }}

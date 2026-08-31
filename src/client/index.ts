@@ -6,7 +6,7 @@
  * 内联 CSS（主题 token，浅色/深色自适应）、react external（模块表注入）。
  *
  * 卡片数据面：settings scope（namespace 'subagent-pause'，宿主半经
- * installSettingsSection 注册）；写路径为 scope.set/unset → settings.mutate，
+ * settings.installSection 注册）；写路径为 scope.set/unset → settings.mutate，
  * 保存即 live 生效（无需重启）。
  */
 

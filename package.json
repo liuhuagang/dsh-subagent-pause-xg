@@ -1,6 +1,6 @@
 {
   "name": "dsh-subagent-pause-xg",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "private": true,
   "type": "module",
   "description": "DSH plugin: pause the parent agent's turns while it has active subagents (no LLM requests), auto-resume when the subagent report arrives. Settings UI card included.",
