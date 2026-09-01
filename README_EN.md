@@ -1,8 +1,6 @@
 # dsh-subagent-pause-xg
 
-<div align="center">
-  <sub><a href="README.md">简体中文</a> | <b>English</b></sub>
-</div>
+[简体中文](README.md) · **English**
 
 > [!NOTE] Maintenance status
 > This plugin is an internal tool of the XG series, **provided for reference/learning only, no maintenance is promised** (issues are not guaranteed to be answered).
